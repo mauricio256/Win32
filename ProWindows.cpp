@@ -21,8 +21,7 @@ LRESULT CALLBACK WinProc(HWND, UINT, WPARAM, LPARAM);
 //--------------------------------------------------------------------------------
 
 // programa principal
-int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nCmdShow)
-{
+int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nCmdShow){
     HWND         hwnd;        // identificador da janela
     MSG          msg;         // mensagem
     WNDCLASS     wndclass;    // classe da janela
@@ -40,8 +39,7 @@ int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
     wndclass.lpszClassName = "BasicWindow";
 
     // Registrando a classe "BasicWindow"
-    if (!RegisterClass(&wndclass))
-    {
+    if (!RegisterClass(&wndclass)){
         MessageBox(NULL, "Erro na criação da janela!", "Aplicação", MB_ICONERROR);
         return 0;
     }
@@ -64,8 +62,7 @@ int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
     UpdateWindow(hwnd);
 
     // Tratamento de mensagens destinadas a janela da aplicação
-    while (GetMessage(&msg, NULL, 0, 0))
-    {
+    while (GetMessage(&msg, NULL, 0, 0)){
         TranslateMessage(&msg);
         DispatchMessage(&msg);
     }
@@ -77,26 +74,24 @@ int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 //-------------------------------------------------------------------------------
 
 // procedimento da janela
-LRESULT CALLBACK WinProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
-{
+LRESULT CALLBACK WinProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam){
     HDC         hdc;      // representa o dispositivo gráfico
     PAINTSTRUCT ps;       // guarda região invalidada da janela
     RECT        rect;     // região retângular
 
-    switch (message)
-    {
-    case WM_PAINT:
-        hdc = BeginPaint(hwnd, &ps);
-
-        GetClientRect(hwnd, &rect);
-        DrawText(hdc, "Oi Janela!", -1, &rect, DT_SINGLELINE | DT_CENTER | DT_VCENTER);
-
-        EndPaint(hwnd, &ps);
-        return 0;
-
-    case WM_DESTROY:
-        PostQuitMessage(0);
-        return 0;
+    switch (message){
+        case WM_PAINT:
+            hdc = BeginPaint(hwnd, &ps);
+    
+            GetClientRect(hwnd, &rect);
+            DrawText(hdc, "Oi Janela!", -1, &rect, DT_SINGLELINE | DT_CENTER | DT_VCENTER);
+    
+            EndPaint(hwnd, &ps);
+            return 0;
+    
+        case WM_DESTROY:
+            PostQuitMessage(0);
+            return 0;
     }
     return DefWindowProc(hwnd, message, wParam, lParam);
 }
